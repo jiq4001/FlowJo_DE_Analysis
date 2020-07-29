@@ -75,10 +75,10 @@ csv_ls <- lapply(f_ls, function(x) read.csv(x))
 marker_stat <- c("Ki67", "PD.L1", "PD1", "GzB", "CD25", "CD38")
 ```
 
-## Use File nNames to Generate Metadata     
+## Use File Names to Generate Metadata     
 For example we have 5 patient and 3 timepoints for each patient in this `Experiment Design`     
 **Note: manual category can be labeled such as responder vs non responder, before or after treatment**    
-
+**Note: Replication is not part of the experiment design, the two replicates were average and the association of the two replicated were used as weighting factoring in the downstream differential analysis. low repreducability contributes less)**     
 ```{r, echo=F}
 #median all
 med <- t(sapply(csv_ls, function(x) (apply(x, 2, median))))
@@ -155,6 +155,7 @@ res$GzB %>%
   scroll_box(height = "400px")
 ```
 
+## Pooling Results Together  
 Set to automatically pull out the populations with either marker differentially expressed:     
 For this example setting, we have     
 GzB differentially expressed in: `CD4+ CD45RA- , CCR7-`, `CD8+ CD45RA- , CCR7+`, `CD8+ CD45RA+ , CCR7-`, `CD8+ CD45RA- , CCR7-`,     

@@ -115,10 +115,13 @@ for (i in 2:7) {
   lrt <- glmLRT(fit, contrast = contrast)
   top <- edgeR::topTags(lrt, n = Inf, adjust.method = "BH", sort.by = "none")
   
-  res[[colnames(y$design)[[i]]]] <- top[top$table$PValue < 0.05 & top$table$FDR < 0.2, ]
+  temp <- top[top$table$PValue < 0.05 & top$table$FDR < 0.2 & abs(top$table$logFC) >= 2, ]
+  #temp <- cbind(contrast = rep(colnames(y$design)[i], nrow(temp)), 
+  #              temp)
+  res[[colnames(y$design)[[i]]]] <- data.frame(temp)
   }
 
-
+do.call(rbind, res)
 
 ```
 
